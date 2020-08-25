@@ -23,6 +23,11 @@ class PostController extends Controller
         return view('admin.index', compact('posts'));
     }
 
+    public function knowUs()
+    {
+        return view('normal.aboutUs');
+    }
+
     /**
      * Show the form for creating a new resource.
      *

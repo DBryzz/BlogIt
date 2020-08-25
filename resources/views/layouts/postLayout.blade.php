@@ -34,6 +34,11 @@
           <a href="{{ route('posts.index') }}" class="navbar-item">
             View Posts
           </a>
+          
+            <a href="{{ route('posts.knowUs') }}" class="navbar-item">
+              About Us
+            </a>
+          
         </div>
         <div class="navbar-end">
           <div class="navbar-item">
@@ -65,8 +70,9 @@
       <div class="content has-text-centered">
         <p>
           <strong>BlogIt</strong> |
-          <a href="https://stevencotterill.com">DBryzz</a>
+          <a href="https://github.com/DBryzz/BlogIt.git">DBryzz</a>
         </p>
+        
       </div>
     </footer>
 
