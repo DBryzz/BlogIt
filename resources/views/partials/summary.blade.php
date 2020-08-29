@@ -1,3 +1,4 @@
+
 <div class="content">
     <a href="{{ route('posts.show', [$post->slug]) }}">
       <h1 class="title">{{ $post->title }}</h1>
@@ -10,10 +11,12 @@
     {{-- Allows insertion of white spaces in content like line breaks and tabs --}}
     <p>{!! nl2br(e($post->content)) !!}</p> 
   
+    @auth
+
     <form method="post" action="{{ route('posts.destroy', [$post->slug]) }}">
 
         {{-- //enables CSRF and Tells laravel the form is submitted for a delete request --}}
-      @csrf @method('delete')
+      
       <div class="field is-grouped">
         <div class="control">
           <a
@@ -30,4 +33,5 @@
         </div>
       </div>
     </form>
+    @endauth
   </div>

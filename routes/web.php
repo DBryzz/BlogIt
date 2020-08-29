@@ -19,8 +19,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
-//Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/view/posts', 'HomeController@index')->name('userHome');
 
 Route::get('/', 'PostController@index');
+route::post('/users/upload', 'UserController@uploadAvatar')->name('users.upload');
+route::get('/users/upload', 'UserController@uploadForm')->name('users.uploadForm');
+
 Route::get('/posts/knowUs', 'PostController@knowUs')->name('posts.knowUs');
 Route::resource('posts', 'PostController');

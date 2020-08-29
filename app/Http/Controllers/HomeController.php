@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Post;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -11,11 +12,11 @@ class HomeController extends Controller
      *
      * @return void
      */
-     public function __construct()
+    /*  public function __construct()
     {
         $this->middleware('auth');
     } 
-
+ */
     /**
      * Show the application dashboard.
      *
@@ -23,6 +24,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        // Get all Posts, ordered by the newest first
+        $posts = Post::latest()->get();
+
+        // Pass Post Collection to view 
+        //The compact method forms an array of variables and their values
+        return view('admin.index', compact('posts'));
     }
 }
