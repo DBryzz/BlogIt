@@ -1,0 +1,68 @@
+version: '3.7'
+
+networks:
+  blogit_network:
+    driver: bridge
+
+services:
+
+
+  # NGINX - Service
+  nginx:
+    image: nginx:stable-alpine
+    container_name: blogit_webserver
+
+    ports:
+      - "8088:80"
+
+    volumes:
+      - ./:/var/www/html
+      - ./.docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+
+    depends_on:
+      - php
+      - mysql
+
+    networks:
+      - blogit_network
+
+
+  # MYSQL – Service
+  mysql:
+    image: mysql:5.7.22
+    container_name: blogit_mysql_db
+    restart: unless-stopped
+
+    ports:
+      - "4306:3306"
+
+    volumes:
+      - ./mysql:/var/lib/mysql
+
+    environment:
+      MYSQL_DATABASE: blogit
+      MYSQL_USER: root
+      MYSQL_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: secret
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+
+    networks:
+      - blogit_network
+
+
+  # PHP-FPM - Service
+  php:
+    build:
+      context: .
+      dockerfile: .docker/Dockerfile
+    container_name: blogit
+
+    volumes:
+      - ./:/var/www/html
+
+    ports:
+      - "9000:9000"
+
+    networks:
+      - blogit_network
